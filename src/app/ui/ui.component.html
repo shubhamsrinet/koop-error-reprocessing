@@ -1,0 +1,48 @@
+<br>
+<h5>OFG Order Status Processesing</h5>
+<div *ngIf="viewMessage" class="alert alert-warning">
+    {{viewMessage}}
+</div>
+<br>
+<div class="container">
+  <div class="input-group" >
+    <input type="text" class="form-control" type="text" placeholder="Enter Order ID 
+or ? to Search all Orders" 
+             (input)="tcode=$event.target.value">
+    <span class="input-group-btn">
+         <button type="submit" class="btn btn-primary" (click)=getupdatedTodo()>Search</button>
+    </span>
+ </div>
+<table class="table">
+    <thead>
+        <tr>
+            <td></td>
+            <th>Order ID</th>
+            <th>Store ID</th>
+            <th>Error Code</th>
+            <th>Error Description</th>
+            <th>Exception</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let ofgError of ofgErrors | paginate:{itemsPerPage: 5, currentPage:p}">
+            <td><input type="checkbox" value=""></td>
+            <td>{{ofgError.orderId}}</td>
+            <td>{{ofgError.storeId}}</td>
+            <td>{{ofgError.errorStage}}</td>
+            <td>{{ofgError.errorReason}}</td>
+            <td>{{ofgError.exception}}</td>
+            <td><button class="btn btn-warning float-right" (click)="viewOfgError(ofgError.orderId)">View</button></td>
+            <td><button class="btn btn-success float-right" >Reprocess</button></td>
+        </tr>
+    </tbody>
+</table>
+<div id="pagination">
+    <pagination-controls (pageChange)="p =$event"></pagination-controls>
+</div>
+<div>
+    <button class="btn btn-danger float-right">Reprocess Selected Order(s)</button>
+</div>
+</div>
+
+
